@@ -23,8 +23,8 @@ public class Main {
 
 
     /*Scale Factor*/
-    private static float sX = 10f;
-    private static float sY = 10f;
+    private static float sX = 5f;
+    private static float sY = 5f;
 
     public static void main(String[] args) throws IOException {
 
@@ -160,22 +160,22 @@ public class Main {
 
                 if (index + inputWidth + 1 < inputImagePixels.length) {
 
-                    A = inputImagePixels[index] & 0xff;
-                    B = inputImagePixels[index + 1] & 0xff;
-                    C = inputImagePixels[index + inputWidth] & 0xff;
-                    D = inputImagePixels[index + inputWidth + 1] & 0xff;
+                    A = inputImagePixels[index];
+                    B = inputImagePixels[index + 1] ;
+                    C = inputImagePixels[index + inputWidth] ;
+                    D = inputImagePixels[index + inputWidth + 1] ;
 
                     gray = (int) (
                             A * (1 - x_diff) * (1 - y_diff) + B * (x_diff) * (1 - y_diff) +
                                     C * (y_diff) * (1 - x_diff) + D * (x_diff * y_diff)
-                    );
+                    )   ;
 
                     temp[offset++] = gray;
                 } else if (index + inputWidth < inputImagePixels.length){
 
-                    A = inputImagePixels[index] & 0xff;
-                    B = inputImagePixels[index + 1] & 0xff;
-                    C = inputImagePixels[index + inputWidth] & 0xff;
+                    A = inputImagePixels[index] ;
+                    B = inputImagePixels[index + 1] ;
+                    C = inputImagePixels[index + inputWidth] ;
 
 
                     gray = (int) (
@@ -185,15 +185,13 @@ public class Main {
 
                     temp[offset++] = gray;
                 } else if (index + 1 < inputImagePixels.length){
-                    A = inputImagePixels[index] & 0xff;
-                    B = inputImagePixels[index + 1] & 0xff;
+                    A = inputImagePixels[index] ;
+                    B = inputImagePixels[index + 1] ;
 
                     gray = (int) (
                             A * (1 - x_diff) * (1 - y_diff) + B * (x_diff) * (1 - y_diff));
 
                     temp[offset++] = gray;
-                } else {
-                    ++out;
                 }
 
 
