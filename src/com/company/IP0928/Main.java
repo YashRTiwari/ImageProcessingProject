@@ -1,4 +1,4 @@
-package com.company;
+package com.company.IP0928;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -28,7 +28,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        String filePath = "test-image.pgm";
+        String filePath = "0928test-image.pgm";
         int[][] inputImage = readPGMFile(filePath);
 
         write(
