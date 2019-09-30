@@ -23,8 +23,8 @@ public class Main {
 
 
     /*Scale Factor*/
-    private static float sX = 1.5f;
-    private static float sY = 1.5f;
+    private static float sX = 2.5f;
+    private static float sY = 2.5f;
 
     public static void main(String[] args) throws IOException {
 
@@ -39,11 +39,10 @@ public class Main {
                                 (int) (inputImage[0].length * sX),
                                 (int) (inputImage.length * sY)),
                         (int) (inputImage[0].length * sX)),
-                new File("teset_" + sX + "_" + sY + "_" + ".pgm"), 255);
+                new File("test_" + sX + "_" + sY + "_" + ".pgm"), 255);
     }
 
-    /*Source : https://gist.github.com/armanbilge/3276d80030d1caa2ed7c
-     * */
+
     public static void write(final int[][] image, final File file, final int maxval) throws IOException {
         if (maxval > MAXVAL)
             throw new IllegalArgumentException("The maximum gray value cannot exceed " + MAXVAL + ".");
@@ -71,9 +70,7 @@ public class Main {
     }
 
 
-    /*
-     * Source : https://stackoverflow.com/questions/3639198/how-to-read-pgm-images-in-java
-     * */
+
     private static int[][] readPGMFile(String filePath) throws IOException {
 
         FileInputStream fileInputStream = new FileInputStream(filePath);
@@ -155,9 +152,6 @@ public class Main {
                 y_diff = (y_ratio * i) - y;
                 index = y * w + x;
 
-                /*if (i<100) {
-                    System.out.println(String.format("x: %d, y:%d, x_diff:%f, y_diff:%f, index:%d", x, y, x_diff, y_diff, index));
-                }*/
                 if (index + w + 1 < pixels.length) {
 
                     A = pixels[index] & 0xff;
@@ -171,9 +165,6 @@ public class Main {
                     );
 
                     temp[offset++] = gray;
-                } else{
-                    ++out;
-                    System.out.println(String.format("i: %d, j:%d", i,j));
                 }
             }
         }
