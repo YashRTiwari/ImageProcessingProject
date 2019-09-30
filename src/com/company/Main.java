@@ -23,8 +23,8 @@ public class Main {
 
 
     /*Scale Factor*/
-    private static float sX = 3.5f;
-    private static float sY = 3.5f;
+    private static float sX = 10f;
+    private static float sY = 10f;
 
     public static void main(String[] args) throws IOException {
 
@@ -118,8 +118,8 @@ public class Main {
 
         int[] newArray = new int[array.length * array[0].length];
 
-        for (int i = 0; i < array.length; ++i)
-            for (int j = 0; j < array[i].length; ++j) {
+        for (int i = 0; i < array.length; i++)
+            for (int j = 0; j < array[i].length; j++) {
                 newArray[i * array[0].length + j] = array[i][j];
             }
 
@@ -138,6 +138,7 @@ public class Main {
     }
 
     public static int[] resizeBilinearGray(int[] inputImagePixels, int inputWidth, int inputHeight, int outWidth, int outHeight) {
+
         int[] temp = new int[outWidth * outHeight];
         int A, B, C, D, x, y, index, gray;
 
@@ -147,6 +148,7 @@ public class Main {
         float x_diff, y_diff;
 
         int offset = 0;
+        int out = 0;
 
         for (int i = 0; i < outHeight; i++) {
             for (int j = 0; j < outWidth; j++) {
@@ -169,10 +171,36 @@ public class Main {
                     );
 
                     temp[offset++] = gray;
+                } else if (index + inputWidth < inputImagePixels.length){
+
+                    A = inputImagePixels[index] & 0xff;
+                    B = inputImagePixels[index + 1] & 0xff;
+                    C = inputImagePixels[index + inputWidth] & 0xff;
+
+
+                    gray = (int) (
+                            A * (1 - x_diff) * (1 - y_diff) + B * (x_diff) * (1 - y_diff) +
+                                    C * (y_diff) * (1 - x_diff)
+                    );
+
+                    temp[offset++] = gray;
+                } else if (index + 1 < inputImagePixels.length){
+                    A = inputImagePixels[index] & 0xff;
+                    B = inputImagePixels[index + 1] & 0xff;
+
+                    gray = (int) (
+                            A * (1 - x_diff) * (1 - y_diff) + B * (x_diff) * (1 - y_diff));
+
+                    temp[offset++] = gray;
+                } else {
+                    ++out;
                 }
+
+
             }
         }
 
+        System.out.println(out);
         return temp;
     }
 
