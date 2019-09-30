@@ -23,23 +23,24 @@ public class Main {
 
 
     /*Scale Factor*/
-    private static float sX = 0.5f;
-    private static float sY = 1.75f;
+    private static float sX = 3.5f;
+    private static float sY = 3.5f;
 
     public static void main(String[] args) throws IOException {
 
         String filePath = "test-image.pgm";
         int[][] inputImage = readPGMFile(filePath);
+
         write(
                 d1Tod2(
                         resizeBilinearGray(
                                 d2Tod1(inputImage),
                                 inputImage[0].length,
                                 inputImage.length,
-                                (int) (inputImage[0].length * sX),
-                                (int) (inputImage.length * sY)),
+                                (int)(inputImage[0].length * sX),
+                                (int)(inputImage.length * sY)),
                         (int) (inputImage[0].length * sX)),
-                new File("out_" + sX + "_" + sY + "_" + ".pgm"), 255);
+                new File("out_" + sX + "_" + sY + "_" + ".pgm"), MAXVAL);
     }
 
 
@@ -136,27 +137,31 @@ public class Main {
         return newArray;
     }
 
-    public static int[] resizeBilinearGray(int[] pixels, int w, int h, int w2, int h2) {
-        int[] temp = new int[w2 * h2];
+    public static int[] resizeBilinearGray(int[] inputImagePixels, int inputWidth, int inputHeight, int outWidth, int outHeight) {
+        int[] temp = new int[outWidth * outHeight];
         int A, B, C, D, x, y, index, gray;
-        float x_ratio = ((float) (w)) / w2;
-        float y_ratio = ((float) (h)) / h2;
+
+        float x_ratio = ((float) (inputWidth)) / outWidth;
+        float y_ratio = ((float) (inputHeight)) / outHeight;
+
         float x_diff, y_diff;
+
         int offset = 0;
-        for (int i = 0; i < h2; i++) {
-            for (int j = 0; j < w2; j++) {
+
+        for (int i = 0; i < outHeight; i++) {
+            for (int j = 0; j < outWidth; j++) {
                 x = (int) (x_ratio * j);
                 y = (int) (y_ratio * i);
                 x_diff = (x_ratio * j) - x;
                 y_diff = (y_ratio * i) - y;
-                index = y * w + x;
+                index = y * inputWidth + x;
 
-                if (index + w + 1 < pixels.length) {
+                if (index + inputWidth + 1 < inputImagePixels.length) {
 
-                    A = pixels[index] & 0xff;
-                    B = pixels[index + 1] & 0xff;
-                    C = pixels[index + w] & 0xff;
-                    D = pixels[index + w + 1] & 0xff;
+                    A = inputImagePixels[index] & 0xff;
+                    B = inputImagePixels[index + 1] & 0xff;
+                    C = inputImagePixels[index + inputWidth] & 0xff;
+                    D = inputImagePixels[index + inputWidth + 1] & 0xff;
 
                     gray = (int) (
                             A * (1 - x_diff) * (1 - y_diff) + B * (x_diff) * (1 - y_diff) +
@@ -170,5 +175,7 @@ public class Main {
 
         return temp;
     }
+
+
 
 }
