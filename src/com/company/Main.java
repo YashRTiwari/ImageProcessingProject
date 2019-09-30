@@ -134,7 +134,7 @@ public class Main {
             newArray[i / width][i % width] = array[i];
         }
 
-        return newArray;
+        return newArray;sdfsdf
     }
 
     public static int[] resizeBilinearGray(int[] inputImagePixels, int inputWidth, int inputHeight, int outWidth, int outHeight) {
