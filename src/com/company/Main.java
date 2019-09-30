@@ -23,8 +23,8 @@ public class Main {
 
 
     /*Scale Factor*/
-    private static float sX = 2.5f;
-    private static float sY = 2.5f;
+    private static float sX = 0.5f;
+    private static float sY = 1.75f;
 
     public static void main(String[] args) throws IOException {
 
@@ -39,7 +39,7 @@ public class Main {
                                 (int) (inputImage[0].length * sX),
                                 (int) (inputImage.length * sY)),
                         (int) (inputImage[0].length * sX)),
-                new File("test_" + sX + "_" + sY + "_" + ".pgm"), 255);
+                new File("out_" + sX + "_" + sY + "_" + ".pgm"), 255);
     }
 
 
@@ -143,7 +143,6 @@ public class Main {
         float y_ratio = ((float) (h)) / h2;
         float x_diff, y_diff;
         int offset = 0;
-        int out = 0;
         for (int i = 0; i < h2; i++) {
             for (int j = 0; j < w2; j++) {
                 x = (int) (x_ratio * j);
@@ -168,7 +167,6 @@ public class Main {
                 }
             }
         }
-        System.out.println(out);
 
         return temp;
     }
