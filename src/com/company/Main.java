@@ -148,7 +148,6 @@ public class Main {
         float x_diff, y_diff;
 
         int offset = 0;
-        int out = 0;
 
         for (int i = 0; i < outHeight; i++) {
             for (int j = 0; j < outWidth; j++) {
@@ -198,7 +197,6 @@ public class Main {
             }
         }
 
-        System.out.println(out);
         return temp;
     }
 
